@@ -14,12 +14,13 @@ function AStar(grid,start,end) {
             return 1;
         }
         openSet.splice(index,1);
+        current.visited = true;
         closedSet.push(current);
 
         for (let i=0; i<current.neighbour.length; ++i) {
             var neighbour = current.neighbour[i];
             
-            if(!closedSet.includes(neighbour) && !neighbour.isWall) {
+            if(!neighbour.visited && !neighbour.isWall) {
                 tentative_gScore = current.g + getDistance(current,neighbour);
             
                 var isNew = false;
@@ -59,6 +60,7 @@ function Djikstra(grid,end) {
         }
 
         openSet.splice(index,1);
+        current.visited = true;
         closedSet.push(current);
 
         if(current == end) {
@@ -68,7 +70,7 @@ function Djikstra(grid,end) {
 
         for(let i=0;i<current.neighbour.length; ++i) {
             let neighbour = current.neighbour[i];
-            if(!closedSet.includes(neighbour) && !neighbour.isWall) {
+            if(!neighbour.visited && !neighbour.isWall) {
                 let dScore = current.d + getDistance(neighbour,current);
                 if(dScore < neighbour.d) {
                     neighbour.d = dScore;
@@ -94,9 +96,10 @@ function DFS(grid,end) {
         
         for(let i=0; i< current.neighbour.length; ++i) {
             let neighbour = current.neighbour[i];
-            if(!closedSet.includes(neighbour) && !neighbour.isWall) {
+            if(!neighbour.visited && !neighbour.isWall) {
                 openSet.push(neighbour);
                 closedSet.push(current);
+                neighbour.visited = true;
                 neighbour.parent = current;
             }
         }
@@ -117,10 +120,11 @@ function BFS(grid,end) {
         }
         for(let i=0; i< current.neighbour.length; ++i) {
             let neighbour = current.neighbour[i];
-            if(!closedSet.includes(neighbour) && !neighbour.isWall) {
+            if(!neighbour.visited && !neighbour.isWall) {
                 openSet.push(neighbour);
                 closedSet.push(current);
                 neighbour.parent = current;
+                neighbour.visited = true;
             }
         }
         return 0;

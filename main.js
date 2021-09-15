@@ -1,4 +1,3 @@
-
 let w;
 let h;
 let gridSize = 25;
@@ -14,6 +13,7 @@ let openSet;
 let closedSet;
 let path;
 let current;
+
 
 function setup() {
     let myCanvas = createCanvas(windowWidth - (windowWidth * 0.02), windowHeight - 80);
@@ -48,9 +48,9 @@ function setup() {
 
     start = grid[10][9];
     start.drawGrid(color(0,255,0));
-    end = grid[45][14];
+    end = grid[35][14];
     end.drawGrid(color(255,0,0));
-
+    noLoop();
 }
 
 function chooseAlgorithm(algo) {
@@ -71,6 +71,7 @@ function chooseAlgorithm(algo) {
             }
         }
     } else if(algoSelected == 'dfs' || algoSelected == 'bfs'){
+        start.visited = true;
         openSet.push(start);
     }
 }
@@ -80,6 +81,7 @@ function startSolving() {
         
     } else {
         isStarted = true;
+        loop();
     }
 }
 function draw() {
@@ -96,6 +98,7 @@ function draw() {
         drawOpenAndClosedSet();
     } else if(isStarted == false){
         DrawPath();
+        noLoop();
     }
 }
 

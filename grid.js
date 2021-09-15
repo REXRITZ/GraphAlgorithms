@@ -10,7 +10,8 @@ class Node {
         this.neighbour = [];
         this.parent = undefined;
         this.isWall = false;
-        this.d = Infinity;
+        this.d = Infinity;          // for djikstra
+        this.visited = false;       // for algorithm
     }
 
     setWall() {
